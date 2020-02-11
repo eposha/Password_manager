@@ -12,13 +12,20 @@ class Login extends React.Component {
       [event.target.name]: event.target.value
     });
   };
+
+  handleSubmit = () => {
+    event.preventDefault();
+    const { loginValue, passValue } = this.state;
+
+    this.props.login(loginValue, passValue);
+  };
   render() {
     const { loginValue, passValue } = this.state;
     return (
       <div className="login">
         <h1 className="title">Password manager</h1>
         <div className="subtitle">Hey, hero! Log in or sign in.</div>
-        <form className="login__form">
+        <form className="login__form" onSubmit={this.handleSubmit}>
           <input
             value={loginValue}
             onChange={this.handleChangeFormData}
@@ -36,8 +43,10 @@ class Login extends React.Component {
             placeholder="Password"
           />
           <button className="btn-login btn">Login</button>
-          <button className="btn-register btn">Create account</button>
         </form>
+        <button className="btn-register btn" onClick={this.props.showRegister}>
+          Create account
+        </button>
       </div>
     );
   }
