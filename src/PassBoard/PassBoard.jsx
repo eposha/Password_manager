@@ -6,28 +6,21 @@ import Edit from "./Edit";
 class PassBoard extends React.Component {
   state = {
     user: {
-      name: "Ivan",
-      surname: "Hero",
-      passwordsData: [
-        {
-          id: Math.random(),
-          site: "GBSFO",
-          userName: "Andrei",
-          password: "93799928"
-        },
-        {
-          id: Math.random(),
-          site: "Gromcode",
-          userName: "Andrei",
-          password: "fich"
-        }
-      ]
+      name: "",
+      surname: "",
+      passwordsData: []
     }
   };
+  componentDidMount() {
+    this.setState({
+      user: this.props.user
+    });
+  }
 
   handleSubmitCreatePass = newPass => {
     const cloneUser = Object.assign({}, this.state.user);
     cloneUser.passwordsData = [].concat(this.state.user.passwordsData, newPass);
+
     this.setState({
       user: cloneUser
     });

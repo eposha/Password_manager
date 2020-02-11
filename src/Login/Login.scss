@@ -33,17 +33,21 @@
         input:first-child {
             margin-top: 25px;
         }
+    }
 
-        .btn {
-            margin-top: 25px;
-            height: 30px;
-            font-size: 15px;
-            border: none;
-            background-color: rgb(21, 119, 211);
-        }
+    .btn {
+        margin-top: 25px;
+        height: 30px;
+        font-size: 15px;
+        border: none;
+        background-color: rgb(21, 119, 211);
+    }
 
-        .btn-login {
-            margin-top: 55px;
-        }
+    .btn-login {
+        margin-top: 55px;
+    }
+
+    .btn-register {
+        width: 350px;
     }
 }

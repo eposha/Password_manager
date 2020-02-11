@@ -3,8 +3,8 @@ import "./Register.scss";
 
 class Register extends React.Component {
   state = {
-    firstNameValue: "",
-    lastNameValue: "",
+    name: "",
+    surname: "",
     usernameValue: "",
     passValue: "",
     repeatPassValue: ""
@@ -15,30 +15,46 @@ class Register extends React.Component {
       [event.target.name]: event.target.value
     });
   };
+
+  handleSubmit = () => {
+    event.preventDefault();
+    const { name, surname, usernameValue, passValue } = this.state;
+    const user = {
+      id: Math.random(),
+      name,
+      surname,
+      usernameValue,
+      passValue,
+      passwordsData: []
+    };
+    this.props.createUser(user);
+  };
+
   render() {
     const {
-      firstNameValue,
-      lastNameValue,
+      name,
+      surname,
       usernameValue,
       passValue,
       repeatPassValue
     } = this.state;
+
     return (
       <div className="register">
         <h1 className="register__title">Create account</h1>
-        <form className="register__account">
+        <form className="register__account" onSubmit={this.handleSubmit}>
           <input
-            value={firstNameValue}
+            value={name}
             onChange={this.handleChangeFormData}
-            name="firstNameValue"
+            name="name"
             type="text"
             className="first-name"
             placeholder="Name"
           />
           <input
-            value={lastNameValue}
+            value={surname}
             onChange={this.handleChangeFormData}
-            name="lastNameValue"
+            name="surname"
             type="text"
             className="last-name"
             placeholder="Surname"
@@ -58,7 +74,7 @@ class Register extends React.Component {
               value={passValue}
               onChange={this.handleChangeFormData}
               name="passValue"
-              type="text"
+              type="password"
               className="account__password"
               placeholder="Password"
             />
@@ -66,7 +82,7 @@ class Register extends React.Component {
               value={repeatPassValue}
               onChange={this.handleChangeFormData}
               name="repeatPassValue"
-              type="text"
+              type="password"
               className="account__password repeat"
               placeholder="Repeat password"
             />
