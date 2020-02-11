@@ -10,11 +10,13 @@ class PassBoard extends React.Component {
       surname: "Hero",
       passwordsData: [
         {
+          id: Math.random(),
           site: "GBSFO",
           userName: "Andrei",
           password: "93799928"
         },
         {
+          id: Math.random(),
           site: "Gromcode",
           userName: "Andrei",
           password: "fich"
@@ -33,7 +35,7 @@ class PassBoard extends React.Component {
 
   editPassword = pass => {
     const newArrPasswords = this.state.user.passwordsData.filter(
-      password => password.site !== pass.site
+      password => password.id !== pass.id
     );
     const cloneUser = Object.assign({}, this.state.user);
     cloneUser.passwordsData = newArrPasswords;
@@ -43,9 +45,9 @@ class PassBoard extends React.Component {
     });
   };
 
-  deletePassword = site => {
+  deletePassword = id => {
     const newArrPasswords = this.state.user.passwordsData.filter(
-      password => password.site !== site
+      password => password.id !== id
     );
     const cloneUser = Object.assign({}, this.state.user);
     cloneUser.passwordsData = newArrPasswords;
@@ -58,10 +60,11 @@ class PassBoard extends React.Component {
   render() {
     const { user } = this.state;
     const userPasswords = user.passwordsData.map(pass => {
-      const { site, userName, password } = pass;
+      const { id, site, userName, password } = pass;
       return (
         <Edit
-          key={site}
+          key={id}
+          id={id}
           editValueSite={site}
           editValueName={userName}
           editValuePass={password}

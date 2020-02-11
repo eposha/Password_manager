@@ -4,11 +4,14 @@ class Edit extends React.Component {
   state = {
     editValueSite: "",
     editValueName: "",
-    editValuePass: ""
+    editValuePass: "",
+    isShowPass: false
   };
+
   componentDidMount() {
     const { id, editValueSite, editValueName, editValuePass } = this.props;
     this.setState({
+      id,
       editValueSite,
       editValueName,
       editValuePass
@@ -22,13 +25,31 @@ class Edit extends React.Component {
   };
 
   editPassword = () => {
-    const { editValueSite, editValueName, editValuePass } = this.state;
-    const editPass = [{ editValueSite, editValueName, editValuePass }];
+    const { id, editValueSite, editValueName, editValuePass } = this.state;
+    const editPass = [{ id, editValueSite, editValueName, editValuePass }];
     this.props.editPassword(editPass);
   };
 
+  showPass = () => {
+    this.setState({
+      isShowPass: true
+    });
+  };
+
+  hiddenPass = () => {
+    this.setState({
+      isShowPass: false
+    });
+  };
+
   render() {
-    const { editValueSite, editValueName, editValuePass } = this.state;
+    const {
+      id,
+      editValueSite,
+      editValueName,
+      editValuePass,
+      isShowPass
+    } = this.state;
     return (
       <>
         <form className="pass-data">
@@ -49,13 +70,15 @@ class Edit extends React.Component {
           <input
             onChange={this.handleChangeFormData}
             value={editValuePass}
+            onFocus={this.showPass}
+            onBlur={this.hiddenPass}
             name="editValuePass"
-            type="password"
+            type={isShowPass ? "text" : "password"}
             className="site__password"
           />
           <button
             className="delete-btn btn"
-            onClick={() => this.props.deletePassword(editValueSite)}
+            onClick={() => this.props.deletePassword(id)}
           >
             del
           </button>

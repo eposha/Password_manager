@@ -33,6 +33,10 @@ class CreatePass extends React.Component {
 
   render() {
     const { createValueSite, createValueName, createValuePass } = this.state;
+    let activeAddButton = false;
+    if (!createValueSite || !createValueName || !createValuePass) {
+      activeAddButton = true;
+    }
     return (
       <form className="add__password" onSubmit={this.handleSubmit}>
         <div className="add__site">
@@ -68,7 +72,9 @@ class CreatePass extends React.Component {
             placeholder="Password"
           />
         </div>
-        <button className="add-btn btn">Add</button>
+        <button className="add-btn btn" disabled={activeAddButton}>
+          Add
+        </button>
       </form>
     );
   }
