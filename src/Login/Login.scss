@@ -17,6 +17,12 @@
         font-size: 18px;
         font-weight: 700;
         color: rgb(145, 145, 145);
+
+        .piece {
+            display: flex;
+            margin-top: 5px;
+            justify-content: center;
+        }
     }
 
     &__form {

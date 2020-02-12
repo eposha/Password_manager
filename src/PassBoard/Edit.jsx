@@ -2,19 +2,19 @@ import React from "react";
 
 class Edit extends React.Component {
   state = {
-    editValueSite: "",
-    editValueName: "",
-    editValuePass: "",
+    site: "",
+    userName: "",
+    password: "",
     isShowPass: false
   };
 
   componentDidMount() {
-    const { id, editValueSite, editValueName, editValuePass } = this.props;
+    const { id, site, userName, password } = this.props;
     this.setState({
       id,
-      editValueSite,
-      editValueName,
-      editValuePass
+      site,
+      userName,
+      password
     });
   }
 
@@ -25,8 +25,8 @@ class Edit extends React.Component {
   };
 
   editPassword = () => {
-    const { id, editValueSite, editValueName, editValuePass } = this.state;
-    const editPass = [{ id, editValueSite, editValueName, editValuePass }];
+    const { id, site, userName, password } = this.state;
+    const editPass = { id, site, userName, password };
     this.props.editPassword(editPass);
   };
 
@@ -43,41 +43,36 @@ class Edit extends React.Component {
   };
 
   render() {
-    const {
-      id,
-      editValueSite,
-      editValueName,
-      editValuePass,
-      isShowPass
-    } = this.state;
+    const { id, site, userName, password, isShowPass } = this.state;
     return (
       <>
         <form className="pass-data">
           <input
             onChange={this.handleChangeFormData}
-            value={editValueSite}
-            name="editValueSite"
+            value={site}
+            name="site"
             type="text"
             className="site__name"
           />
           <input
             onChange={this.handleChangeFormData}
-            value={editValueName}
-            name="editValueName"
+            value={userName}
+            name="userName"
             type="text"
             className="username"
           />
           <input
             onChange={this.handleChangeFormData}
-            value={editValuePass}
+            value={password}
             onFocus={this.showPass}
             onBlur={this.hiddenPass}
-            name="editValuePass"
+            name="password"
             type={isShowPass ? "text" : "password"}
             className="site__password"
           />
           <button
             className="delete-btn btn"
+            type="button"
             onClick={() => this.props.deletePassword(id)}
           >
             del

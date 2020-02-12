@@ -2,6 +2,7 @@ import React from "react";
 import "./PassBoard.scss";
 import CreatePass from "./CreatePass";
 import Edit from "./Edit";
+import { setItem, getItem } from "../localStorage/localStorage";
 
 class PassBoard extends React.Component {
   state = {
@@ -24,6 +25,9 @@ class PassBoard extends React.Component {
     this.setState({
       user: cloneUser
     });
+    const { id } = this.state.user;
+    const newListUsers = getItem("users").filter(user => user.id !== id);
+    setItem("users", [].concat(newListUsers, cloneUser));
   };
 
   editPassword = pass => {
@@ -31,16 +35,21 @@ class PassBoard extends React.Component {
       password => password.id !== pass.id
     );
     const cloneUser = Object.assign({}, this.state.user);
-    cloneUser.passwordsData = newArrPasswords;
+
+    cloneUser.passwordsData = [].concat(newArrPasswords, pass);
 
     this.setState({
       user: cloneUser
     });
+
+    const { id } = this.state.user;
+    const newListUsers = getItem("users").filter(user => user.id !== id);
+    setItem("users", [].concat(newListUsers, cloneUser));
   };
 
-  deletePassword = id => {
+  deletePassword = identifier => {
     const newArrPasswords = this.state.user.passwordsData.filter(
-      password => password.id !== id
+      password => password.id !== identifier
     );
     const cloneUser = Object.assign({}, this.state.user);
     cloneUser.passwordsData = newArrPasswords;
@@ -48,6 +57,10 @@ class PassBoard extends React.Component {
     this.setState({
       user: cloneUser
     });
+
+    const { id } = this.state.user;
+    const newListUsers = getItem("users").filter(user => user.id !== id);
+    setItem("users", [].concat(newListUsers, cloneUser));
   };
 
   render() {
@@ -58,9 +71,9 @@ class PassBoard extends React.Component {
         <Edit
           key={id}
           id={id}
-          editValueSite={site}
-          editValueName={userName}
-          editValuePass={password}
+          site={site}
+          userName={userName}
+          password={password}
           editPassword={this.editPassword}
           deletePassword={this.deletePassword}
         />
@@ -74,6 +87,12 @@ class PassBoard extends React.Component {
       </div>
     );
   }
+}
+
+function setChanges() {
+  const { id } = this.state.user;
+  const newListUsers = getItem("users").filter(user => user.id !== id);
+  setItem("users", [].concat(newListUsers, cloneUser));
 }
 
 export default PassBoard;

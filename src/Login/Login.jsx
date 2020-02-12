@@ -24,7 +24,10 @@ class Login extends React.Component {
     return (
       <div className="login">
         <h1 className="title">Password manager</h1>
-        <div className="subtitle">Hey, hero! Log in or sign in.</div>
+        <div className="subtitle">
+          Hey, hero! Log in or begin!
+          <span className="piece">It’s a piece of cake</span>
+        </div>
         <form className="login__form" onSubmit={this.handleSubmit}>
           <input
             value={loginValue}
