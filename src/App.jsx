@@ -2,19 +2,26 @@ import React from "react";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import PassBoard from "./PassBoard/PassBoard";
+import { setItem, getItem } from "./localStorage/localStorage";
 class App extends React.Component {
   state = {
     newUser: {},
-    users: [{ userName: "Ivan", passValue: "qwerty", passwordsData: [] }],
+    users: [],
     isShowLogin: true,
     isShowRegister: false,
     isShowPassBoard: false
   };
 
+  componentDidMount() {
+    this.setState({
+      users: getItem("users")
+    });
+  }
+
   login = (userName, password) => {
     const { users } = this.state;
     const user = users.find(user => {
-      if (user.userName === userName && user.passValue === password) {
+      if (user.usernameValue === userName && user.passValue === password) {
         return true;
       }
     });
@@ -34,9 +41,11 @@ class App extends React.Component {
   };
 
   createUser = user => {
+    const users = [].concat(getItem("users"), user);
+    setItem("users", users);
+
     this.setState({
       newUser: user,
-      users: [].concat(this.state.users, user),
       isShowPassBoard: true,
       isShowRegister: false
     });
