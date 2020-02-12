@@ -2,7 +2,12 @@ import React from "react";
 import "./PassBoard.scss";
 import CreatePass from "./CreatePass";
 import Edit from "./Edit";
-import { setItem, getItem } from "../localStorage/localStorage";
+import {
+  setNewPassToLocalStorage,
+  createNewPass,
+  editPass,
+  deletePass
+} from "./utilities";
 
 class PassBoard extends React.Component {
   state = {
@@ -19,48 +24,33 @@ class PassBoard extends React.Component {
   }
 
   handleSubmitCreatePass = newPass => {
-    const cloneUser = Object.assign({}, this.state.user);
-    cloneUser.passwordsData = [].concat(this.state.user.passwordsData, newPass);
+    const cloneUser = createNewPass(this.state.user, newPass);
 
     this.setState({
       user: cloneUser
     });
-    const { id } = this.state.user;
-    const newListUsers = getItem("users").filter(user => user.id !== id);
-    setItem("users", [].concat(newListUsers, cloneUser));
+
+    setNewPassToLocalStorage(this.state.user, cloneUser);
   };
 
   editPassword = pass => {
-    const newArrPasswords = this.state.user.passwordsData.filter(
-      password => password.id !== pass.id
-    );
-    const cloneUser = Object.assign({}, this.state.user);
-
-    cloneUser.passwordsData = [].concat(newArrPasswords, pass);
+    const cloneUser = editPass(this.state.user, pass);
 
     this.setState({
       user: cloneUser
     });
 
-    const { id } = this.state.user;
-    const newListUsers = getItem("users").filter(user => user.id !== id);
-    setItem("users", [].concat(newListUsers, cloneUser));
+    setNewPassToLocalStorage(this.state.user, cloneUser);
   };
 
   deletePassword = identifier => {
-    const newArrPasswords = this.state.user.passwordsData.filter(
-      password => password.id !== identifier
-    );
-    const cloneUser = Object.assign({}, this.state.user);
-    cloneUser.passwordsData = newArrPasswords;
+    const cloneUser = deletePass(this.state.user, identifier);
 
     this.setState({
       user: cloneUser
     });
 
-    const { id } = this.state.user;
-    const newListUsers = getItem("users").filter(user => user.id !== id);
-    setItem("users", [].concat(newListUsers, cloneUser));
+    setNewPassToLocalStorage(this.state.user, cloneUser);
   };
 
   render() {
@@ -87,12 +77,6 @@ class PassBoard extends React.Component {
       </div>
     );
   }
-}
-
-function setChanges() {
-  const { id } = this.state.user;
-  const newListUsers = getItem("users").filter(user => user.id !== id);
-  setItem("users", [].concat(newListUsers, cloneUser));
 }
 
 export default PassBoard;
