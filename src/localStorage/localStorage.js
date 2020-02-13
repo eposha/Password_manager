@@ -1,5 +1,5 @@
 const user = [{
-    id: Math.random(),
+    id: Math.floor(Math.random() * 10000000),
     name: 'Andrei',
     surname: 'Iepanieshnikov',
     usernameValue: 'Eposha',

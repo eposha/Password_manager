@@ -1,12 +1,20 @@
 import React from "react";
+import { setNewPass, saveUser } from "../utilities/utilities";
 import "./CreatePass.scss";
 
 class CreatePass extends React.Component {
   state = {
+    currentUser: null,
     createValueSite: "",
     createValueName: "",
     createValuePass: ""
   };
+
+  componentDidMount() {
+    this.setState({
+      currentUser: this.props.currentUser
+    });
+  }
 
   handleChangeFormData = event => {
     this.setState({
@@ -16,19 +24,16 @@ class CreatePass extends React.Component {
 
   handleSubmit = () => {
     event.preventDefault();
-    this.props.submit([
-      {
-        id: Math.random(),
-        site: this.state.createValueSite,
-        userName: this.state.createValueName,
-        password: this.state.createValuePass
-      }
-    ]);
-    this.setState({
-      createValueSite: "",
-      createValueName: "",
-      createValuePass: ""
-    });
+    const { currentUser } = this.state;
+    const newPass = {
+      id: Math.random(),
+      site: this.state.createValueSite,
+      userName: this.state.createValueName,
+      password: this.state.createValuePass
+    };
+    const updatedUserPass = setNewPass(currentUser, newPass);
+    saveUser(updatedUserPass);
+    this.props.updateUsersList();
   };
 
   render() {

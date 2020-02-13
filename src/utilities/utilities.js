@@ -10,13 +10,26 @@ const sortPass = (arr) => arr.sort((a, b) => {
     return 0;
 });
 
+export const createUser = (user) => {
+    const newUsersList = getItem('users').concat(user);
+    setItem('users', newUsersList)
+}
+
+export const saveUser = (user) => {
+    const { id } = user;
+    const deletedOldUser = getItem("users").filter(user => user.id !== id);
+    const newUsersList = deletedOldUser.concat(user)
+
+    setItem('users', newUsersList)
+}
+
 export const setNewPassToLocalStorage = (user, newPass) => {
     const { id } = user;
     const newListUsers = getItem("users").filter(user => user.id !== id);
     setItem("users", [].concat(newListUsers, newPass));
 }
 
-export const createNewPass = (user, newPass) => {
+export const setNewPass = (user, newPass) => {
     const cloneUser = Object.assign({}, user);
     cloneUser.passwordsData = sortPass(
         [].concat(user.passwordsData, newPass)

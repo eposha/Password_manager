@@ -1,5 +1,5 @@
 {
-  "name": "task3",
+  "name": "gbsfo",
   "version": "1.0.0",
   "main": "webpack.config.js",
   "scripts": {
@@ -40,7 +40,8 @@
     "prop-types": "^15.7.2",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
-    "react-fontawesome": "^1.7.1"
+    "react-fontawesome": "^1.7.1",
+    "react-router-dom": "^5.1.2"
   },
   "repository": {
     "type": "git",

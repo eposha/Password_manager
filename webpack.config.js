@@ -12,7 +12,8 @@ module.exports = (env, argv) => {
         entry: "./src/index.jsx",
         output: { // in which folder and file will be saving production version
             path: __dirname + '/pages',
-            filename: "bundle.js"
+            filename: "bundle.js",
+            publicPath: '/'
         },
         module: {
             rules: [ // for which files what use
@@ -40,7 +41,8 @@ module.exports = (env, argv) => {
             }),
         ],
         devServer: {
-            hot: true
+            hot: true,
+            historyApiFallback: true
         }
     };
 
