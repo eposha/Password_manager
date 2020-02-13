@@ -1,4 +1,5 @@
 import React from "react";
+import { createUser } from "../utilities/utilities";
 import "./Register.scss";
 
 class Register extends React.Component {
@@ -10,7 +11,7 @@ class Register extends React.Component {
     repeatPassValue: ""
   };
 
-  handleChangeFormData = event => {
+  handleFormData = event => {
     this.setState({
       [event.target.name]: event.target.value
     });
@@ -18,16 +19,40 @@ class Register extends React.Component {
 
   handleSubmit = () => {
     event.preventDefault();
-    const { name, surname, usernameValue, passValue } = this.state;
+    const { updateUsersList, history, users } = this.props;
+    const {
+      name,
+      surname,
+      usernameValue,
+      passValue,
+      repeatPassValue
+    } = this.state;
+    const isSameUsername = users.find(
+      user => user.usernameValue.toLowerCase() === usernameValue.toLowerCase()
+    );
+
+    if (isSameUsername) {
+      alert("Hero, I want you to be unique, change your username please");
+      return;
+    }
+
+    if (passValue !== repeatPassValue) {
+      alert("Hero, last jerk left, check the password match");
+      return;
+    }
+
+    const id = Math.floor(Math.random() * 10000000);
     const user = {
-      id: Math.random(),
+      id,
       name,
       surname,
       usernameValue,
       passValue,
       passwordsData: []
     };
-    this.props.createUser(user);
+    createUser(user);
+    updateUsersList();
+    history.push(`/passboard/${id}`);
   };
 
   render() {
@@ -45,7 +70,7 @@ class Register extends React.Component {
         <form className="register__account" onSubmit={this.handleSubmit}>
           <input
             value={name}
-            onChange={this.handleChangeFormData}
+            onChange={this.handleFormData}
             name="name"
             type="text"
             className="first-name"
@@ -53,7 +78,7 @@ class Register extends React.Component {
           />
           <input
             value={surname}
-            onChange={this.handleChangeFormData}
+            onChange={this.handleFormData}
             name="surname"
             type="text"
             className="last-name"
@@ -62,7 +87,7 @@ class Register extends React.Component {
 
           <input
             value={usernameValue}
-            onChange={this.handleChangeFormData}
+            onChange={this.handleFormData}
             name="usernameValue"
             type="text"
             className="account__name"
@@ -72,7 +97,7 @@ class Register extends React.Component {
           <div className="register__data">
             <input
               value={passValue}
-              onChange={this.handleChangeFormData}
+              onChange={this.handleFormData}
               name="passValue"
               type="password"
               className="account__password"
@@ -80,7 +105,7 @@ class Register extends React.Component {
             />
             <input
               value={repeatPassValue}
-              onChange={this.handleChangeFormData}
+              onChange={this.handleFormData}
               name="repeatPassValue"
               type="password"
               className="account__password repeat"

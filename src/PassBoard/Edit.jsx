@@ -1,5 +1,5 @@
 import React from "react";
-
+import { saveUser, editPass, deletePass } from "../utilities/utilities";
 class Edit extends React.Component {
   state = {
     site: "",
@@ -9,8 +9,9 @@ class Edit extends React.Component {
   };
 
   componentDidMount() {
-    const { id, site, userName, password } = this.props;
+    const { id, site, userName, password, currentUser } = this.props;
     this.setState({
+      currentUser,
       id,
       site,
       userName,
@@ -25,20 +26,26 @@ class Edit extends React.Component {
   };
 
   editPassword = () => {
-    const { id, site, userName, password } = this.state;
-    const editPass = { id, site, userName, password };
-    this.props.editPassword(editPass);
+    const { id, site, userName, password, currentUser } = this.state;
+    const editPassword = { id, site, userName, password };
+    const editedUserPass = editPass(currentUser, editPassword);
+
+    saveUser(editedUserPass);
+    this.props.updateUsersList();
   };
 
-  showPass = () => {
-    this.setState({
-      isShowPass: true
-    });
+  deletePassword = passId => {
+    const { currentUser } = this.state;
+    const deletedUserPass = deletePass(currentUser, passId);
+
+    saveUser(deletedUserPass);
+    this.props.updateUsersList();
   };
 
-  hiddenPass = () => {
+  toggleShowPass = () => {
+    const toogle = this.state.isShowPass;
     this.setState({
-      isShowPass: false
+      isShowPass: !toogle
     });
   };
 
@@ -64,8 +71,8 @@ class Edit extends React.Component {
           <input
             onChange={this.handleChangeFormData}
             value={password}
-            onFocus={this.showPass}
-            onBlur={this.hiddenPass}
+            onFocus={this.toggleShowPass}
+            onBlur={this.toggleShowPass}
             name="password"
             type={isShowPass ? "text" : "password"}
             className="site__password"
@@ -73,7 +80,7 @@ class Edit extends React.Component {
           <button
             className="delete-btn btn"
             type="button"
-            onClick={() => this.props.deletePassword(id)}
+            onClick={() => this.deletePassword(id)}
           >
             del
           </button>

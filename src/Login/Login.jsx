@@ -1,8 +1,10 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import "./Login.scss";
 
 class Login extends React.Component {
   state = {
+    user: null,
     loginValue: "",
     passValue: ""
   };
@@ -16,9 +18,22 @@ class Login extends React.Component {
   handleSubmit = () => {
     event.preventDefault();
     const { loginValue, passValue } = this.state;
+    const { users, history } = this.props;
 
-    this.props.login(loginValue, passValue);
+    const user = users.find(
+      user => user.usernameValue === loginValue && user.passValue === passValue
+    );
+
+    if (!user) {
+      alert(
+        "Hero, I can`t find you! Check login and password or quickly create a new account"
+      );
+      return;
+    }
+    const id = user.id;
+    history.push(`/passboard/${id}`);
   };
+
   render() {
     const { loginValue, passValue } = this.state;
     return (
@@ -45,11 +60,12 @@ class Login extends React.Component {
             className="login__password"
             placeholder="Password"
           />
+
           <button className="btn-login btn">Login</button>
         </form>
-        <button className="btn-register btn" onClick={this.props.showRegister}>
-          Create account
-        </button>
+        <Link to="/register">
+          <button className="btn-register btn">Create account</button>
+        </Link>
       </div>
     );
   }
