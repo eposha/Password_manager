@@ -1,5 +1,5 @@
 import React from "react";
-import { HashRouter as BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch } from "react-router-dom";
 import Login from "./Login/Login";
 import Register from "./Register/Register";
 import PassBoard from "./PassBoard/PassBoard";
@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     const { users } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/GBSFO_test/pages/">
         <Switch>
           <Route
             exact
