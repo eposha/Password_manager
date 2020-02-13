@@ -23,12 +23,6 @@ export const saveUser = (user) => {
     setItem('users', newUsersList)
 }
 
-export const setNewPassToLocalStorage = (user, newPass) => {
-    const { id } = user;
-    const newListUsers = getItem("users").filter(user => user.id !== id);
-    setItem("users", [].concat(newListUsers, newPass));
-}
-
 export const setNewPass = (user, newPass) => {
     const cloneUser = Object.assign({}, user);
     cloneUser.passwordsData = sortPass(
