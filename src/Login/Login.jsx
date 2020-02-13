@@ -1,5 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { findUser } from "./validLogin";
 import "./Login.scss";
 
 class Login extends React.Component {
@@ -20,17 +21,10 @@ class Login extends React.Component {
     const { loginValue, passValue } = this.state;
     const { users, history } = this.props;
 
-    const user = users.find(
-      user => user.usernameValue === loginValue && user.passValue === passValue
-    );
+    const findedUser = findUser(users, loginValue, passValue);
+    if (!findedUser) return;
 
-    if (!user) {
-      alert(
-        "Hero, I can`t find you! Check login and password or quickly create a new account"
-      );
-      return;
-    }
-    const id = user.id;
+    const id = findedUser.id;
     history.push(`/passboard/${id}`);
   };
 

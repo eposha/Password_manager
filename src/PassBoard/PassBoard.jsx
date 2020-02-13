@@ -1,7 +1,7 @@
 import React from "react";
 import "./PassBoard.scss";
 import CreatePass from "./CreatePass";
-import Edit from "./Edit";
+import PasswordsList from "./PasswordsList";
 
 class PassBoard extends React.Component {
   state = {
@@ -12,20 +12,6 @@ class PassBoard extends React.Component {
     const { users, match, updateUsersList } = this.props;
     const currentUser = users.find(user => user.id === +match.params.userId);
 
-    const userPasswords = currentUser.passwordsData.map(pass => {
-      const { id, site, userName, password } = pass;
-      return (
-        <Edit
-          key={id}
-          id={id}
-          site={site}
-          userName={userName}
-          password={password}
-          currentUser={currentUser}
-          updateUsersList={updateUsersList}
-        />
-      );
-    });
     return (
       <div className="pass-board">
         <h2 className="pass-title">Data passwords</h2>
@@ -33,7 +19,10 @@ class PassBoard extends React.Component {
           currentUser={currentUser}
           updateUsersList={updateUsersList}
         />
-        {userPasswords}
+        <PasswordsList
+          currentUser={currentUser}
+          updateUsersList={updateUsersList}
+        />
       </div>
     );
   }

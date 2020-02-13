@@ -1,6 +1,7 @@
 import React from "react";
 import { createUser } from "../utilities/utilities";
 import "./Register.scss";
+import { validSameName, validRepeatPass } from "./validRegister";
 
 class Register extends React.Component {
   state = {
@@ -27,19 +28,12 @@ class Register extends React.Component {
       passValue,
       repeatPassValue
     } = this.state;
-    const isSameUsername = users.find(
-      user => user.usernameValue.toLowerCase() === usernameValue.toLowerCase()
-    );
 
-    if (isSameUsername) {
-      alert("Hero, I want you to be unique, change your username please");
+    if (
+      !validSameName(users, usernameValue) ||
+      !validRepeatPass(passValue, repeatPassValue)
+    )
       return;
-    }
-
-    if (passValue !== repeatPassValue) {
-      alert("Hero, last jerk left, check the password match");
-      return;
-    }
 
     const id = Math.floor(Math.random() * 10000000);
     const user = {

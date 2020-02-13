@@ -42,6 +42,17 @@
         background-color: rgb(24, 143, 255);
     }
 
+    .not-edit {
+        margin-left: auto;
+        margin-bottom: 5px;
+        font-size: 15px;
+        height: 40px;
+        width: 40px;
+        border: none;
+        border-radius: 100%;
+        background-color: rgb(24, 143, 255);
+    }
+
     .btn:hover {
         background-color: rgb(21, 119, 211);
         box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);

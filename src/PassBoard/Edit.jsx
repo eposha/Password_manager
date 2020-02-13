@@ -5,7 +5,8 @@ class Edit extends React.Component {
     site: "",
     userName: "",
     password: "",
-    isShowPass: false
+    isShowPass: false,
+    isEdit: ""
   };
 
   componentDidMount() {
@@ -15,13 +16,15 @@ class Edit extends React.Component {
       id,
       site,
       userName,
-      password
+      password,
+      isEdit: true
     });
   }
 
   handleChangeFormData = event => {
     this.setState({
-      [event.target.name]: event.target.value
+      [event.target.name]: event.target.value,
+      isEdit: false
     });
   };
 
@@ -50,7 +53,7 @@ class Edit extends React.Component {
   };
 
   render() {
-    const { id, site, userName, password, isShowPass } = this.state;
+    const { id, site, userName, password, isShowPass, isEdit } = this.state;
     return (
       <>
         <form className="pass-data">
@@ -85,7 +88,11 @@ class Edit extends React.Component {
             del
           </button>
         </form>
-        <button className="save__change-btn btn" onClick={this.editPassword}>
+        <button
+          className={`save__change-btn ${!isEdit ? "btn" : "not-edit"}`}
+          onClick={this.editPassword}
+          disabled={isEdit}
+        >
           Edit
         </button>
       </>
