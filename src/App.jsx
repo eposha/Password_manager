@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     const { users } = this.state;
     return (
-      <BrowserRouter>
+      <BrowserRouter basename="/joonline">
         <Switch>
           <Route
             exact
