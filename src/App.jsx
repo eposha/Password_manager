@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     const { users } = this.state;
     return (
-      <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <BrowserRouter>
         <Switch>
           <Route
             exact

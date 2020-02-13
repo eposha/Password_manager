@@ -13,7 +13,7 @@ module.exports = (env, argv) => {
         output: { // in which folder and file will be saving production version
             path: __dirname + '/pages',
             filename: "bundle.js",
-            publicPath: '/pages'
+            publicPath: '/GBSFO_test/pages'
         },
         module: {
             rules: [ // for which files what use
