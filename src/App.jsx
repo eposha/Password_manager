@@ -18,7 +18,7 @@ class App extends React.Component {
   render() {
     const { users } = this.state;
     return (
-      <BrowserRouter basename="/GBSFO_test/pages/">
+      <BrowserRouter>
         <Switch>
           <Route
             exact
@@ -34,7 +34,7 @@ class App extends React.Component {
               <Register
                 updateUsersList={this.updateUsersList}
                 history={history}
-                users={this.state.users}
+                users={users}
               />
             )}
           />

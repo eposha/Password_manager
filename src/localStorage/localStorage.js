@@ -1,4 +1,4 @@
-const user = [{
+const users = [{
     id: Math.floor(Math.random() * 10000000),
     name: 'Andrei',
     surname: 'Iepanieshnikov',
@@ -9,7 +9,7 @@ const user = [{
 
 const getItem = key => {
     if (localStorage.getItem(key) === null) {
-        setItem('users', user);
+        setItem('users', users);
     }
     return JSON.parse(localStorage.getItem(key));
 }
