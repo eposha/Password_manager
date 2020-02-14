@@ -7,16 +7,16 @@ module.exports = (env, argv) => {
     const isProduction = argv.mode === "production";
     const config = {
         resolve: {
-            extensions: ['.js', '.jsx'], // which extensions you don`t need add
+            extensions: ['.js', '.jsx'],
         },
         entry: "./src/index.jsx",
-        output: { // in which folder and file will be saving production version
+        output: {
             path: __dirname + '/pages',
             filename: "bundle.js",
             publicPath: '/'
         },
         module: {
-            rules: [ // for which files what use
+            rules: [
                 {
                     test: /.jsx?$/,
                     use: ["babel-loader"]
@@ -34,9 +34,9 @@ module.exports = (env, argv) => {
             ],
         },
         plugins: [
-            new webpack.ProgressPlugin(), // show line loader in terminal   
-            new CleanWebpackPlugin(), // clean 
-            new HtmlWebpackPlugin({ // write output file to the template 
+            new webpack.ProgressPlugin(),
+            new CleanWebpackPlugin(),
+            new HtmlWebpackPlugin({
                 template: "./src/index.html"
             }),
         ],
@@ -47,7 +47,7 @@ module.exports = (env, argv) => {
     };
 
     if (isProduction) {
-        config.plugins.push(new MiniCssExtractPlugin({ // do min css
+        config.plugins.push(new MiniCssExtractPlugin({
             filename: "[name].css",
         }));
     }
