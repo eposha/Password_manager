@@ -1,4 +1,4 @@
-# [Passwords manager](https://eposha.github.io/GBSFO_pages/pages/)
+# [Passwords manager](https://eposha.github.io/Passwords_manager_pages/pages/)
 
 ### QUICK START
 
